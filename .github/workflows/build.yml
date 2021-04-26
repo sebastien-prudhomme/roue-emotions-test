@@ -51,15 +51,11 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Get Tag
-        id: get-tag
-        uses: olegtarasov/get-tag@v2.1
-
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: linux
-          path: dist/electron/Packaged/roue-emotions-${{ steps.get-tag.outputs.tag }}.AppImage
+          path: dist/electron/Packaged/roue-emotions-*.AppImage
 
   build-win:
     runs-on: windows-latest
@@ -80,12 +76,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Get Tag
-        id: get-tag
-        uses: olegtarasov/get-tag@v2.1
-
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: win
-          path: dist/electron/Packaged/roue-emotions-${{ steps.get-tag.outputs.tag }}.exe
+          path: dist/electron/Packaged/roue-emotions-*.exe
