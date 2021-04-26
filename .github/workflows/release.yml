@@ -20,6 +20,9 @@ jobs:
       - name: Install Node Packages
         run: npm ci
 
+      - name: Java Version
+        run: java -version
+
       - name: Install Cordova
         run: npm install -g cordova
 
