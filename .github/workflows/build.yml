@@ -32,6 +32,12 @@ jobs:
       - name: Build Android Package
         run: npx quasar build -m cordova -T android -- -- --packageType=bundle
 
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: android
+          path: src-cordova/platforms/android/app/build/outputs/bundle/release/app-release.aab
+
   build-linux:
     runs-on: ubuntu-latest
     steps:
