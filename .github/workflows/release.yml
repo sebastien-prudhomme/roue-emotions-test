@@ -20,17 +20,14 @@ jobs:
       - name: Install Node Packages
         run: npm ci
 
+      - name: Install Cordova
+        run: npm install -g cordova
+
       - name: Setup Java
         uses: actions/setup-java@v2
         with:
           distribution: adopt
           java-version: 8
-
-      - name: Java Version
-        run: java -version
-
-      - name: Install Cordova
-        run: npm install -g cordova
 
       - name: Build Android Package
         run: npx quasar build -m cordova -T android -- -- --packageType=bundle
@@ -61,7 +58,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
-          node-version: '12'
+          node-version: 12
 
       - name: Install Node Packages
         run: npm ci
@@ -90,7 +87,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
-          node-version: '12'
+          node-version: 12
 
       - name: Install Node Packages
         run: npm ci

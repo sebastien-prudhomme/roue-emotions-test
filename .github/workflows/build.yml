@@ -1,0 +1,91 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Install Node Packages
+        run: npm ci
+
+      - name: Install Cordova
+        run: npm install -g cordova
+
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: adopt
+          java-version: 8
+
+      - name: Build Android Package
+        run: npx quasar build -m cordova -T android -- -- --packageType=bundle
+
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Install Node Packages
+        run: npm ci
+
+      - name: Build Linux Package
+        run: npx quasar build -m electron -T linux
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get Tag
+        id: get-tag
+        uses: olegtarasov/get-tag@v2.1
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux
+          path: dist/electron/Packaged/roue-emotions-${{ steps.get-tag.outputs.tag }}.AppImage
+
+  build-win:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Install Node Packages
+        run: npm ci
+
+      - name: Build Windows Package
+        run: npx quasar build -m electron -T win
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get Tag
+        id: get-tag
+        uses: olegtarasov/get-tag@v2.1
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: win
+          path: dist/electron/Packaged/roue-emotions-${{ steps.get-tag.outputs.tag }}.exe
