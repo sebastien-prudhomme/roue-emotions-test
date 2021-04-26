@@ -64,7 +64,7 @@ jobs:
 
       - name: Get Tag
         id: get-tag
-        uses: olegtarasov/get-tag@v2
+        uses: olegtarasov/get-tag@v2.1
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
@@ -93,7 +93,7 @@ jobs:
 
       - name: Get Tag
         id: get-tag
-        uses: olegtarasov/get-tag@v2
+        uses: olegtarasov/get-tag@v2.1
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
@@ -121,7 +121,7 @@ jobs:
 
       - name: Get Tag
         id: get-tag
-        uses: olegtarasov/get-tag@v2
+        uses: olegtarasov/get-tag@v2.1
 
       - name: Upload Linux Release Asset
         uses: actions/upload-release-asset@v1
